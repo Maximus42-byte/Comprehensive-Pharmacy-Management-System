@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="final_project_1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-MV17QOF;Initial Catalog=final_project_1;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="final_project_1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.manufacturer" Member="manufacturers">
+    <Type Name="manufacturer">
+      <Column Name="row_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="territory_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CEO" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="telephone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="manufacturer_medicine" Member="medicines" ThisKey="id" OtherKey="manufacturer_id" Type="medicine" />
+      <Association Name="territory_manufacturer" Member="territory" ThisKey="territory_id" OtherKey="id" Type="territory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.medicine" Member="medicines">
+    <Type Name="medicine">
+      <Column Name="row_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="medicine_price" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="manufacturer_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="medicine_pharmacy_repository" Member="pharmacy_repositories" ThisKey="id" OtherKey="medicine_id" Type="pharmacy_repository" />
+      <Association Name="medicine_reserved_medicine" Member="reserved_medicines" ThisKey="id" OtherKey="medicine_id" Type="reserved_medicine" />
+      <Association Name="manufacturer_medicine" Member="manufacturer" ThisKey="manufacturer_id" OtherKey="id" Type="manufacturer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pharmacy_list" Member="pharmacy_lists">
+    <Type Name="pharmacy_list">
+      <Column Name="row_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="pharmacy_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="manager" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="telephone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="territory_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="pharmacy_list_pharmacy_repository" Member="pharmacy_repositories" ThisKey="id" OtherKey="pharmacy_id" Type="pharmacy_repository" />
+      <Association Name="pharmacy_list_pharmacy_staff" Member="pharmacy_staffs" ThisKey="id" OtherKey="phrmacy_id" Type="pharmacy_staff" />
+      <Association Name="pharmacy_list_reserved_medicine" Member="reserved_medicines" ThisKey="id" OtherKey="pharmacy_id" Type="reserved_medicine" />
+      <Association Name="territory_pharmacy_list" Member="territory" ThisKey="territory_id" OtherKey="id" Type="territory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pharmacy_repository" Member="pharmacy_repositories">
+    <Type Name="pharmacy_repository">
+      <Column Name="row_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pharmacy_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="medicine_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="manufacture_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="expiration_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ID" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="medicine_pharmacy_repository" Member="medicine" ThisKey="medicine_id" OtherKey="id" Type="medicine" IsForeignKey="true" />
+      <Association Name="pharmacy_list_pharmacy_repository" Member="pharmacy_list" ThisKey="pharmacy_id" OtherKey="id" Type="pharmacy_list" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pharmacy_staff" Member="pharmacy_staffs">
+    <Type Name="pharmacy_staff">
+      <Column Name="row_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="first_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="last_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="phrmacy_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="pharmacy_list_pharmacy_staff" Member="pharmacy_list" ThisKey="phrmacy_id" OtherKey="id" Type="pharmacy_list" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.territory" Member="territories">
+    <Type Name="territory">
+      <Column Name="row_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="city" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="state" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="territory_manufacturer" Member="manufacturers" ThisKey="id" OtherKey="territory_id" Type="manufacturer" />
+      <Association Name="territory_pharmacy_list" Member="pharmacy_lists" ThisKey="id" OtherKey="territory_id" Type="pharmacy_list" />
+      <Association Name="territory_user" Member="users" ThisKey="id" OtherKey="territory_id" Type="user" />
+    </Type>
+  </Table>
+  <Table Name="dbo.users" Member="users">
+    <Type Name="user">
+      <Column Name="row_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="first_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="last_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="telephone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="territory_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="user_reserved_medicine" Member="reserved_medicines" ThisKey="id" OtherKey="user_id" Type="reserved_medicine" />
+      <Association Name="territory_user" Member="territory" ThisKey="territory_id" OtherKey="id" Type="territory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.reserved_medicine" Member="reserved_medicines">
+    <Type Name="reserved_medicine">
+      <Column Name="row_number" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="pharmacy_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="medicine_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="cont" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="reserved_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="user_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="medicine_reserved_medicine" Member="medicine" ThisKey="medicine_id" OtherKey="id" Type="medicine" IsForeignKey="true" />
+      <Association Name="pharmacy_list_reserved_medicine" Member="pharmacy_list" ThisKey="pharmacy_id" OtherKey="id" Type="pharmacy_list" IsForeignKey="true" />
+      <Association Name="user_reserved_medicine" Member="user" ThisKey="user_id" OtherKey="id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
